@@ -1,0 +1,97 @@
+﻿@model GeoRef.Models.GeoReferenceDto
+<script src="https://maps.googleapis.com/maps/api/js?"></script> 
+<form asp-action="GeoReferenceDelete">
+    <input asp-for="idGeoreferencia" hidden/>
+    <br />
+    <div class="container border p-3">
+        <h1 class="text-primary">Eliminar Georeferencia</h1>
+        <hr />
+        <div class="col-12">
+            <div class="row">
+                <div asp-validation-summary="None" class="text-danger"></div>
+                <div class="form-group row">
+                    <div class="col-2">
+                        <label class="control-label pt-2" style="font-size:20px;">Estado</label>
+                    </div>
+                    <div class="col-4">
+                        <select asp-for="idEstado" disabled="disabled" asp-items="@ViewBag.EstadosList" class="form-control">
+                            <option disabled="disabled" selected="selected"> Selecciona Estado </option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-2">
+                        <label class="control-label pt-2" style="font-size:20px;" asp-for="Latitud"></label>
+                    </div>
+                    <div class="col-5 pb-3">
+                        <input asp-for="Latitud" disabled="disabled" class="form-control"/>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-2">
+                        <label class="form-label pt-2" style="font-size:20px;" asp-for="Longitud"></label>
+                    </div>
+                    <div class="col-5 pb-3">
+                        <input asp-for="Longitud" disabled="disabled" class="form-control"/>
+                    </div>
+                </div>
+
+                <input type="button" value="Mostrar Mapa" onclick="DisplayGoogleMap()" />  
+                    <div id="myDiv" style="width:100%;height:400px;"></div>  
+      
+                    <script type="text/javascript">  
+                        function DisplayGoogleMap() {  
+  
+                            //Asignar latitud y longitud de el mapa
+                            //var myAddress = new google.maps.LatLng(24.466807, 54.384297);;
+                            var dbl_latitud = 24.466807;
+                            var dbl_longitud = 54.384297;
+                            
+                            @if(@Model != null){
+                                ViewBag.Latitud = @Model.Latitud;
+                                ViewBag.Longitud = @Model.Longitud;
+                            }
+                            else{
+                                ViewBag.Latitud = 24.466807;
+                                ViewBag.Longitud = 54.384297;
+                            }
+                            var myAddress = new google.maps.LatLng(@ViewBag.Latitud, @ViewBag.Longitud);
+                            //Crear caracteristicas para el google maps
+                            var mapOptions = {  
+                                center: myAddress,  
+                                zoom: 100,  
+                                minZoom: 15,  
+                                mapTypeId: google.maps.MapTypeId.ROADMAP  
+                            };  
+  
+                            //Mostrar el Mapa de google en el div
+                            var map = new google.maps.Map(document.getElementById("myDiv"), mapOptions);  
+  
+                            //Asignar marcador en el mapa
+                            var marker = new google.maps.Marker({  
+                                position: myAddress,  
+                                animation: google.maps.Animation.BOUNCE,  
+                            });  
+  
+                            marker.setMap(map);  
+                           } 
+                    </script>   
+
+                <br />
+                <br />
+                <hr />
+                <div class="form-group row">
+                    <div class="col-5 offset-2">
+                        <a asp-action="GeoReferenceIndex" class="btn-primary btn form-control">Regresar</a>
+                    </div>
+
+                    <div class="col-5">
+                        <input type="submit" value="Eliminar" class="btn btn-danger form-control"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

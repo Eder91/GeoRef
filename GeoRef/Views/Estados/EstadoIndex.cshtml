@@ -1,0 +1,38 @@
+﻿@model IEnumerable<GeoRef.Models.EstadosDto>
+
+<br />
+<div class="container p-4 border">
+    <div class="row pb-2">
+        <div class="col">
+            <h1 class="text-primary">Lista Estados</h1>
+        </div>
+        <div class="col text-end pt-1">
+            <a asp-action="EstadoCreate" class="btn btn-outline-primary"> <i class="fas fa-plus"> Nuevo Estado </i></a>
+        </div>
+    </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Descripcion</th>
+                <th>Clave Fiscal</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Descripcion</td>
+                    <td>@item.Clave_Fiscal</td>
+                    <td>
+                        <a asp-action="EstadoEdit" class="btn btn-success" asp-route-idEstado="@item.idEstado"></a><i class="fas fa-edit"></i>
+                    </td>
+                    <td>
+                        <a asp-action="EstadoDelete" class="btn btn-danger" asp-route-idEstado="@item.idEstado"></a><i class="fas fa-trash"></i>
+                    </td>
+                    <td></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
