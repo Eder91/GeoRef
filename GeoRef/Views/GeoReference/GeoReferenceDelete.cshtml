@@ -1,5 +1,7 @@
 ﻿@model GeoRef.Models.GeoReferenceDto
+
 <script src="https://maps.googleapis.com/maps/api/js?"></script> 
+
 <form asp-action="GeoReferenceDelete">
     <input asp-for="idGeoreferencia" hidden/>
     <br />
@@ -37,6 +39,7 @@
                         <input asp-for="Longitud" disabled="disabled" class="form-control"/>
                     </div>
                 </div>
+
 
                 <input type="button" value="Mostrar Mapa" onclick="DisplayGoogleMap()" />  
                     <div id="myDiv" style="width:100%;height:400px;"></div>  

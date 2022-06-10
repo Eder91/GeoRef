@@ -50,7 +50,6 @@ namespace GeoRef.Controllers
         }
         public async Task<IActionResult> GeoReferenceEdit(int idGeoReference)
         {
-            
             var response = await _geoReferencesService.GetGeoReferenceByIdAsync<ResponseDto>(idGeoReference);
             var response2 = await _geoReferencesService.GetEstados<ResponseDto>();
             if (response2 != null && response2.IsSuccess)
@@ -61,12 +60,10 @@ namespace GeoRef.Controllers
             if (response != null && response.IsSuccess)
             {
                 GeoReferenceDto geoReference = JsonConvert.DeserializeObject<GeoReferenceDto>(Convert.ToString(response.Result));
-                
                 return View(geoReference);
             }
             return NotFound();
         }
-       
         [HttpPost]
         public async Task<IActionResult> GeoReferenceEdit(GeoReferenceDto geoReferenceDto)
         {

@@ -1,6 +1,10 @@
 ﻿@model GeoRef.Models.GeoReferenceDto
+
 <script src="https://maps.googleapis.com/maps/api/js?"></script> 
 
+
+
+<script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
 
 <form asp-action="GeoReferenceEdit">
     <input asp-for="idGeoreferencia" hidden/>
@@ -42,6 +46,7 @@
                         <span asp-validation-for="Longitud" class="text-danger"></span>
                     </div>
                 </div>
+
                 <input type="button" value="Mostrar Mapa" onclick="DisplayGoogleMap()" />  
                     <div id="myDiv" style="width:100%;height:400px;"></div>  
       
@@ -82,6 +87,13 @@
                             marker.setMap(map);  
                            } 
                     </script>  
+
+
+                <div id="map"></div>
+                
+                
+
+
                 <br />
                 <br />
                 <hr />

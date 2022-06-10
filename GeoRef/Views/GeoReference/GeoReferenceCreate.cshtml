@@ -1,4 +1,28 @@
 ﻿@model GeoRef.Models.GeoReferenceDto
+
+<style type="text/css">  
+      html, body, #canvasMap {  
+        height: 100%;  
+        margin: 0px;  
+        padding: 0px  
+      }  
+    </style>  
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>  
+    <script type="text/javascript">  
+        var map;  
+        function LoadGoogleMAP() {  
+            var SetmapOptions = {  
+                zoom: 10,  
+                center: new google.maps.LatLng(-34.397, 150.644)  
+            };  
+            map = new google.maps.Map(document.getElementById('canvasMap'),  
+      SetmapOptions);  
+        }  
+  
+        google.maps.event.addDomListener(window, 'load', LoadGoogleMAP);  
+  
+    </script>  
+
 <form asp-action="GeoReferenceCreate">
     <br />
     <div class="container border p-3">
@@ -25,6 +49,7 @@
                     </div>
                     <div class="col-5 pb-3">
                         <input asp-for="Latitud" id="idLatitud" class="form-control"/>
+                        <input asp-for="Latitud" class="form-control"/>
                         <span asp-validation-for="Latitud" class="text-danger"></span>
                     </div>
                 </div>
@@ -35,10 +60,12 @@
                     </div>
                     <div class="col-5 pb-3">
                         <input asp-for="Longitud" id="idLongitud" class="form-control"/>
+                        <input asp-for="Longitud" class="form-control"/>
                         <span asp-validation-for="Longitud" class="text-danger"></span>
                     </div>
                 </div>
-
+                <h1>Display Google Map</h1>
+                <div id="canvasMap"> </div>  
 
                 <br />
                 <br />
