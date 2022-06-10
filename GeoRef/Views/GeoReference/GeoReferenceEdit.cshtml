@@ -1,5 +1,11 @@
 ﻿@model GeoRef.Models.GeoReferenceDto
+
+<script src="https://maps.googleapis.com/maps/api/js?"></script> 
+
+
+
 <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+
 <form asp-action="GeoReferenceEdit">
     <input asp-for="idGeoreferencia" hidden/>
     <br />
@@ -41,9 +47,52 @@
                     </div>
                 </div>
 
+                <input type="button" value="Mostrar Mapa" onclick="DisplayGoogleMap()" />  
+                    <div id="myDiv" style="width:100%;height:400px;"></div>  
+      
+                    <script type="text/javascript">  
+                        function DisplayGoogleMap() {  
+  
+                            //Asignar latitud y longitud de el mapa
+                            //var myAddress = new google.maps.LatLng(24.466807, 54.384297);;
+                            var dbl_latitud = 24.466807;
+                            var dbl_longitud = 54.384297;
+                            
+                            @if(@Model != null){
+                                ViewBag.Latitud = @Model.Latitud;
+                                ViewBag.Longitud = @Model.Longitud;
+                            }
+                            else{
+                                ViewBag.Latitud = 24.466807;
+                                ViewBag.Longitud = 54.384297;
+                            }
+                            var myAddress = new google.maps.LatLng(@ViewBag.Latitud, @ViewBag.Longitud);
+                            //Crear caracteristicas para el google maps
+                            var mapOptions = {  
+                                center: myAddress,  
+                                zoom: 100,  
+                                minZoom: 15,  
+                                mapTypeId: google.maps.MapTypeId.ROADMAP  
+                            };  
+  
+                            //Mostrar el Mapa de google en el div
+                            var map = new google.maps.Map(document.getElementById("myDiv"), mapOptions);  
+  
+                            //Asignar marcador en el mapa
+                            var marker = new google.maps.Marker({  
+                                position: myAddress,  
+                                animation: google.maps.Animation.BOUNCE,  
+                            });  
+  
+                            marker.setMap(map);  
+                           } 
+                    </script>  
+
+
                 <div id="map"></div>
                 
                 
+
 
                 <br />
                 <br />
